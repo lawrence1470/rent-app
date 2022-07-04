@@ -2,9 +2,21 @@ import {useState} from "react";
 import {useCollection} from 'react-firebase-hooks/firestore';
 import {db} from './fire-base-config'
 import {collection} from 'firebase/firestore'
+import {Route, useNavigate, Routes} from "react-router-dom";
+import {
+    ClerkProvider,
+    SignedIn,
+    SignedOut,
+    RedirectToSignIn,
+} from "@clerk/clerk-react";
+import Dashboard from "./pages/Dashboard";
+
+const frontendApi = process.env.REACT_APP_CLERK_FRONTEND_API
+
 
 export default function App() {
-    const [users, setUsers] = useState([])
+    const navigate = useNavigate();
+
     const [value, loading, error] = useCollection(
         collection(db, 'test'),
         {
@@ -12,15 +24,20 @@ export default function App() {
         }
     );
 
-    console.log(value, error, 'hihihi')
 
     return (
-        <h1 className="text-3xl font-bold underline">
-            {value && value.docs.map((doc) => (
-                <div key={doc.id}>
-                    {JSON.stringify(doc.data())},{' '}
-                </div>
-            ))}
-        </h1>
+
+        <ClerkProvider frontendApi={frontendApi} navigate={(to) => navigate(to)}>
+            <SignedIn>
+                <Routes>
+                    <Route path="/" element={<Dashboard/>}/>
+                </Routes>
+            </SignedIn>
+            <SignedOut>
+                <RedirectToSignIn/>
+            </SignedOut>
+        </ClerkProvider>
+
     )
 }
+
