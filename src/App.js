@@ -15,6 +15,7 @@ import {
     QueryClient,
     QueryClientProvider,
 } from 'react-query'
+import TestRoute from "./pages/TestRoute";
 
 const frontendApi = process.env.REACT_APP_CLERK_FRONTEND_API
 
@@ -33,6 +34,7 @@ export default function App() {
                     <Routes>
                         <Route path="/" element={<WelcomeUser/>}/>
                         <Route path="/dashboard" element={<Dashboard/>}/>
+                        <Route path="/test" element={<TestRoute/>}/>
 
                     </Routes>
                 </SignedIn>

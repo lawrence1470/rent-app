@@ -1,8 +1,12 @@
 import React from 'react'
 import classNames from 'classnames'
 import {SIDEBAR_NAVIGATION} from "../constants";
+import {Link, useLocation} from "react-router-dom";
 
 const NarrowSideBar = () => {
+    const {pathname} = useLocation()
+
+    console.log(pathname)
     return (
         <div className="hidden w-28 bg-indigo-700 overflow-y-auto md:block">
             <div className="w-full py-6 flex flex-col items-center">
@@ -15,11 +19,11 @@ const NarrowSideBar = () => {
                 </div>
                 <div className="flex-1 mt-6 w-full px-2 space-y-1">
                     {SIDEBAR_NAVIGATION.map((item) => (
-                        <a
+                        <Link
                             key={item.name}
-                            href={item.href}
+                            to={item.href}
                             className={classNames(
-                                item.current ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white',
+                                item.href === pathname ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-800 hover:text-white',
                                 'group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium'
                             )}
                             aria-current={item.current ? 'page' : undefined}
@@ -32,7 +36,7 @@ const NarrowSideBar = () => {
                                 aria-hidden="true"
                             />
                             <span className="mt-2">{item.name}</span>
-                        </a>
+                        </Link>
                     ))}
                 </div>
             </div>
