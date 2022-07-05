@@ -1,7 +1,4 @@
-import {useState} from "react";
-import {useCollection} from 'react-firebase-hooks/firestore';
-import {db} from './fire-base-config'
-import {collection} from 'firebase/firestore'
+import React from "react";
 import {Route, useNavigate, Routes} from "react-router-dom";
 import {
     ClerkProvider,
@@ -10,33 +7,41 @@ import {
     RedirectToSignIn,
 } from "@clerk/clerk-react";
 import Dashboard from "./pages/Dashboard";
+import WelcomeUser from "./pages/WelcomeUser";
+import {
+    useQuery,
+    useMutation,
+    useQueryClient,
+    QueryClient,
+    QueryClientProvider,
+} from 'react-query'
 
 const frontendApi = process.env.REACT_APP_CLERK_FRONTEND_API
+
+const queryClient = new QueryClient()
 
 
 export default function App() {
     const navigate = useNavigate();
 
-    const [value, loading, error] = useCollection(
-        collection(db, 'test'),
-        {
-            snapshotListenOptions: {includeMetadataChanges: true},
-        }
-    );
-
 
     return (
+        <QueryClientProvider client={queryClient}>
 
-        <ClerkProvider frontendApi={frontendApi} navigate={(to) => navigate(to)}>
-            <SignedIn>
-                <Routes>
-                    <Route path="/" element={<Dashboard/>}/>
-                </Routes>
-            </SignedIn>
-            <SignedOut>
-                <RedirectToSignIn/>
-            </SignedOut>
-        </ClerkProvider>
+            <ClerkProvider frontendApi={frontendApi} navigate={(to) => navigate(to)}>
+                <SignedIn>
+                    <Routes>
+                        <Route path="/" element={<WelcomeUser/>}/>
+                        <Route path="/dashboard" element={<Dashboard/>}/>
+
+                    </Routes>
+                </SignedIn>
+                <SignedOut>
+                    <RedirectToSignIn/>
+                </SignedOut>
+            </ClerkProvider>
+        </QueryClientProvider>
+
 
     )
 }

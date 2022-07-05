@@ -23,13 +23,7 @@ const Header = ({setMobileMenuOpen}) => {
                 <div className="flex-1 flex justify-end px-4 sm:px-6">
                     <div className="ml-2 flex items-center space-x-4 sm:ml-6 sm:space-x-6">
                         <ProfileDropdown/>
-                        <button
-                            type="button"
-                            className="flex bg-indigo-600 p-1 rounded-full items-center justify-center text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        >
-                            <PlusSmIcon className="h-6 w-6" aria-hidden="true"/>
-                            <span className="sr-only">Add file</span>
-                        </button>
+
                     </div>
                 </div>
             </div>

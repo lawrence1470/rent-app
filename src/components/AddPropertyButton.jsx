@@ -4,6 +4,7 @@ import {PlusSmIcon} from "@heroicons/react/outline";
 
 const AddPropertyButton = () => {
 
+
     return (
         <button
             type="button"
