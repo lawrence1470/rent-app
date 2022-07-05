@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import NarrowSideBar from "../components/NarrowSideBar";
 import MobileMenu from "../components/MobileMenu";
 import Header from "../components/Header";
-import AddPropertyButton from "../components/AddPropertyButton";
+import Properties from "../components/Properties";
 
 
 const Dashboard = () => {
@@ -26,10 +26,10 @@ const Dashboard = () => {
                         <main className="flex-1 overflow-y-auto">
                             {/* Primary column */}
                             <section aria-labelledby="primary-heading"
-                                     className="min-w-0 flex-1 h-full flex flex-col lg:order-last">
+                                     className="min-w-0 flex-1 h-full flex flex-col lg:order-last py-5 px-3">
 
                                 {/* Your content */}
-                                <AddPropertyButton/>
+                                <Properties/>
                             </section>
                         </main>
 
